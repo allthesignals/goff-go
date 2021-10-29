@@ -1,0 +1,51 @@
+<div class="popup">
+  <div class="ui active basic modal">
+    <div class="ui fluid green card">
+      {{#if this.model.image}}
+        <div class="uploaded-photo image">
+          <img src="{{this.model.image}}" alt="" />
+        </div>
+      {{/if}}
+      <div class="content">
+        <div class="header tile-header" style="background-image: url('{{this.model.logo}}'); background-position: center; background-repeat: no-repeat;">
+        </div>
+        <div class="description">
+          {{#if this.model.activity.description}}
+            {{{this.model.activity.description}}}
+          {{else}}
+            Upload a photo for this clue!
+          {{/if}}
+        </div>
+      </div>
+      {{#with (file-queue) as |queue|}}
+        <div class="extra content">
+          <div class="ui two buttons">
+              <ImageUploader
+                class="ui green button {{if (eq queue.files.length 1) 'loading disabled'}}"
+                @tile={{this.model}} @didUpload={{this.successfulUpload}}
+              >
+                {{#if (eq queue.files.length 1)}}
+                  {{!-- Uploading... --}}
+                {{else}}
+                  <i class="add icon"></i>
+                  {{#if this.model.image}}
+                    Replace
+                  {{else}}
+                    Photo
+                  {{/if}}
+                {{/if}}
+              </ImageUploader>
+
+              <LinkTo @route='index' class="ui button {{if (eq queue.files.length 1) 'disabled'}}">Back</LinkTo>
+          </div>
+        </div>
+        {{#if queue.progress}}
+          <div class="ui bottom attached green progress">
+            <div class="green bar" style="width: {{if queue.progress queue.progress 0}}%"></div>
+          </div>
+        {{/if}}
+      {{/with}}
+    </div>
+  </div>
+</div>
+

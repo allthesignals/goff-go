@@ -1,0 +1,63 @@
+<div class="bingo-board">
+  {{#each tiles as |tile idx|}}
+    <div
+      role="button"
+      aria-pressed={{tile.selected}}
+      class="tile"
+      onclick={{action "toggleTileSelect" tile}}
+    >
+      <div style="width: 100%; height: 100%; background-image: url('{{if tile.image tile.image tile.logo}}');background-size: contain; background-repeat: no-repeat; background-position: center;">
+
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+{{#if this.hasSimpleBingo}}
+  {{#unless this.userInfo.hasSubmittedOnce}}
+    <button class="ui green fluid button " {{action 'toggleSubmitPrompt'}}>
+      Submit Results
+    </button>
+  {{/unless}}
+
+  {{#if this.promptSubmit}}
+    <div class="popup">
+      <div class="ui active basic modal">
+        <img src="/images/app/vls-logo.png" alt="" class="ui small centered logo image bounce-in-top">
+
+        <div class="ui huge header">Wait! Are you sure you want to submit?</div>
+        
+        <p>Remember: you can't submit again after you've submitted once!</p>
+
+        <button class="ui primary fluid button" {{action 'toggleSubmitPrompt'}}>
+          Go back!
+        </button>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <button
+          class="ui green fluid button {{if this.isSubmitting 'loading disabled'}}" {{action 'submitResults'}}
+          disable={{if this.isSubmitting true false}}
+        >
+          Yes, I'm done. Submit Results!
+        </button>
+      </div>
+    </div>
+  {{/if}}
+{{/if}}
+
+{{#if this.hasSubmittedOnce}}
+  <div class="popup">
+    <div class="ui active basic modal">
+      <img src="/images/app/vls-logo.png" alt="" class="ui small centered logo image bounce-in-top">
+  
+      <div class="ui huge header">Thanks for playing!</div>
+              <p>Tune into our Facebook Live Broadcast Sunday, Oct. 4 at 7 pm when we’ll divvy up the spoils!</p>
+
+    </div>
+  </div>
+{{/if}}
+
+{{outlet}}

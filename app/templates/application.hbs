@@ -1,0 +1,18 @@
+<UserRegistration
+  @userId={{this.user}}
+/>
+
+{{#bingo-board user=this.user}}
+  {{outlet}}
+{{/bingo-board}}
+
+<p class="ui centered inverted sub header">
+  Having trouble?
+  <br/>Email <a href="mailto:drudasill@sisuyouth.org">drudasill at sisuyouth.org</a>.
+</p>
+
+<footer class="footer">
+  {{#if this.isLocal}}
+    {{#new-board class="new-board no-print" role="button"}}New board{{/new-board}}
+  {{/if}}
+</footer>

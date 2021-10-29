@@ -1,0 +1,29 @@
+{{#if this.userInfo}}
+  {{#unless this.userInfo.hasSubmittedOnce}}
+    <img src="/images/app/vls-logo.png" alt="" class="ui small centered logo image bounce-in-top">
+    <p class="ui centered inverted sub header">Click a logo below to start your hunt!</p>
+  {{/unless}}
+{{else}}
+  <div class="popup">
+    <div class="ui active basic modal">
+      <img src="/images/app/vls-logo.png" alt="" class="ui small centered logo image bounce-in-top">
+      Welcome!
+
+      Before we get started, please answer a few quick questions:
+
+      <form class="ui inverted form" {{on 'submit' this.handleRegistration}}>
+        <div class="field">
+          <label>Name</label>
+          <input type="text" placeholder="Viva" name="name">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="text" placeholder="viva@email.com" name="email">
+        </div>
+        <button class="ui fluid green button" type="submit">Go!</button>
+      </form>
+    </div>
+  </div>
+{{/if}}
+
+{{yield}}

@@ -1,0 +1,7 @@
+<FileUpload ...attributes
+  @name="photos"
+  @accept="image/*"
+  @onfileadd={{action this.handleFile}} as |queue|
+>
+  {{yield queue.files.length}}
+</FileUpload>

@@ -1,0 +1,488 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  min-height: 100%;
+  background-image: url(/images/app/treasure-map-bg.jpeg);
+  background-size: cover;
+}
+
+.header {
+  color: white;
+  font-family: 'Nanum Pen Script', cursive;
+  letter-spacing: 2px;
+  text-align: center;
+  margin: 18px 0;
+}
+
+.bingo-board {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  width: 720px;
+  border-radius: 100px;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 720px) {
+  .bingo-board {
+    width: 100%;
+  }
+}
+
+.tile {
+  display: flex;
+  width: 20%; /* bingo-board width / 5 */
+  padding: 10px;
+  box-sizing: border-box;
+  height: 120px;
+  margin: auto;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.178);
+}
+
+@media only screen and (max-width: 720px) {
+  .tile {
+    width: 20%;
+    height: 80px;
+  }
+}
+
+.tile:nth-child(1) {
+  border-radius: 3px 0 0 0;
+}
+
+.tile:nth-child(5) {
+  border-radius: 0 3px 0 0;
+}
+
+.tile:nth-child(21) {
+  border-radius: 0 0 0 3px;
+}
+
+.tile:nth-child(25) {
+  border-radius: 0 0 3px 0;
+}
+
+.tile-word {
+  align-self: center;
+  text-align: center;
+  width: 100%;
+  font-weight: 600;
+}
+
+.free {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .tile {
+    font-size: 16px;
+  }
+  .free {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .tile {
+    font-size: 14px;
+  }
+  .free {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .tile {
+    font-size: 12px;
+    padding: 5px;
+  }
+  .free {
+    font-size: 18px;
+  }
+}
+
+.popup {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.selected {
+  color: white;
+  background: rgb(255, 108, 81); /* Old browsers */
+  background: -moz-linear-gradient(45deg, rgba(255, 108, 81,1) 14%, rgba(239, 88, 158,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, rgba(255, 108, 81,1) 14%,rgba(239, 88, 158,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, rgba(255, 108, 81,1) 14%,rgba(239, 88, 158,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.win-background {
+  display: flex;
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  height: 100%;
+  text-align: center;
+  padding: 0px;
+  border-radius: 2px;
+  color: white;
+  margin: 0;
+  background: rgb(229,50,104); /* Old browsers */
+  background: -moz-linear-gradient(45deg, rgba(229,50,104,1) 9%, rgba(32,124,202,1) 73%, rgba(125,185,232,1) 97%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, rgba(229,50,104,1) 9%,rgba(32,124,202,1) 73%,rgba(125,185,232,1) 97%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, rgba(229,50,104,1) 9%,rgba(32,124,202,1) 73%,rgba(125,185,232,1) 97%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  width: 100%;
+  padding-bottom: 120px;
+  z-index: 900;
+}
+
+.win-message {
+  color: rgb(253,253,253);
+  position: relative;
+  align-self: center;
+  font-size: 140px;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 30px;
+  z-index: 1000;
+}
+
+.tomster {
+  float: left;
+  position: absolute;
+  right: 10%;
+  top: 25%;
+  transform: rotate(15deg);
+  z-index: 1001;
+  height: auto;
+}
+
+@media only screen and (max-width: 1200px) {
+  .win-message {
+    font-size: 100px;
+    letter-spacing: 25px;
+  }
+  .tomster {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .win-message {
+    font-size: 100px;
+    letter-spacing: 20px;
+  }
+  .tomster {
+    width: 180px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .win-message {
+    font-size: 80px;
+  }
+  .tomster {
+    width: 140px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .win-message {
+    font-size: 60px;
+  }
+  .tomster {
+    top: 18%;
+    width: 120px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .win-message {
+    font-size: 40px;
+    margin-left: 20px;
+  }
+  .tomster {
+    width: 120px;
+  }
+}
+
+@media only screen and (max-height: 770px) {
+  .tomster {
+    width: 120px;
+    top: 8%;
+  }
+}
+
+.fine-print {
+  opacity: 0.6;
+  position: absolute;
+  z-index: 1001;
+  margin: 0;
+  bottom: 0;
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+}
+
+.footer {
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+  color: #ffe1c1;
+  font-size: 14px;
+}
+
+@media only screen and (min-height: 740px) {
+  .footer {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 16px;
+    z-index: 100;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .footer {
+    font-size: 14px;
+  }
+}
+
+.github-link {
+  color: #ffe1c1;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.new-board {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+@media print {
+  .no-print, .no-print * {
+    display: none !important;
+  }
+}
+
+.display-none {
+  display: none;
+}
+
+@media print {
+  .print-only, .print-only * {
+    display: inline-block !important;
+  }
+}
+
+.diamond {
+  background-color: white;
+}
+
+.gold {
+  background-color: gold;
+}
+
+.bronze {
+  background-color: brown;
+}
+
+.silver {
+  background-color: silver;
+}
+
+.tile-view {
+  margin: 1em;
+}
+
+.tile-header {
+  background-color: #0b0b0b;
+  background-size: contain;
+  height: 200px;
+}
+
+.uploaded-photo {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-10-1 15:8:31
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation bounce-in-top
+ * ----------------------------------------
+ */
+@-webkit-keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+            transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+            transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+            transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+            transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+}
+@keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+            transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+            transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+            transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+            transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+}
+
+.bounce-in-top {
+	-webkit-animation: bounce-in-top 1.1s both;
+	        animation: bounce-in-top 1.1s both;
+}
+
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-10-1 15:14:28
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation fade-in-fwd
+ * ----------------------------------------
+ */
+@-webkit-keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+            transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+            transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+
+.fade-in-fwd {
+	-webkit-animation: fade-in-fwd 0.6s steps(2, end) both;
+	        animation: fade-in-fwd 0.6s steps(2, end) both;
+}
